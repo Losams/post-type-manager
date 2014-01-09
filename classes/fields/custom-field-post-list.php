@@ -1,10 +1,8 @@
 <?php 
 
-class Custom_Field_Post_List {
-	protected $_label;
-	protected $_description;
+class Custom_Field_Post_List extends Custom_Field_Abstract{
+
 	protected $_post_type;
-	protected $_id;
 
 	public function __construct($label, $desc = null, $post_type = null) {
 		$this->_label = $label;
@@ -27,13 +25,5 @@ class Custom_Field_Post_List {
 	    $html .= '</select><br /><span class="description">'.$this->_description.'</span>';  
 	    
 		return $html; 
-	}
-
-	public function get_id() {
-		return $this->_id;
-	}
-
-	public function get_label() {
-		return $this->_label;
 	}
 }

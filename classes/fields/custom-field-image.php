@@ -1,10 +1,7 @@
 <?php 
 
-class Custom_Field_Image {
-	protected $_label;
-	protected $_description;
-	protected $_id;
-
+class Custom_Field_Image extends Custom_Field_Abstract{
+	
 	public function __construct($label, $desc = null, $post_type = null) {
 		$this->_label = $label;
 		$this->_description = $desc;
@@ -23,13 +20,5 @@ class Custom_Field_Image {
 	                    <br clear="all" /><span class="description">'.$this->_description.'';  
 	    
 		return $html; 
-	}
-
-	public function get_id() {
-		return $this->_id;
-	}
-
-	public function get_label() {
-		return $this->_label;
 	}
 }

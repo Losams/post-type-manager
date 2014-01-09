@@ -10,6 +10,7 @@ if(is_admin()) {
 }
 
 require_once(__DIR__.'/classes/post-type-meta-box.php');
+require_once(__DIR__.'/classes/fields/custom-field-abstract.php');
 require_once(__DIR__.'/classes/fields/custom-field-text.php');
 require_once(__DIR__.'/classes/fields/custom-field-textarea.php');
 require_once(__DIR__.'/classes/fields/custom-field-checkbox.php');

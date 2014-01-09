@@ -1,10 +1,7 @@
 <?php 
 
-class Custom_Field_Checkbox {
-	protected $_label;
-	protected $_description;
-	protected $_id;
-
+class Custom_Field_Checkbox extends Custom_Field_Abstract{
+	
 	public function __construct($label, $desc = null) {
 		$this->_label = $label;
 		$this->_description = $desc;
@@ -16,13 +13,5 @@ class Custom_Field_Checkbox {
 	public function output($meta){
 		return '<input type="checkbox" name="'.$this->_id.'" id="'.$this->_id.'" '. ($meta ? ' checked="checked"' : '') .'/> 
 				<label for="'.$this->_id.'">'.$this->_description.'</label>'; 
-	}
-
-	public function get_id() {
-		return $this->_id;
-	}
-
-	public function get_label() {
-		return $this->_label;
 	}
 }

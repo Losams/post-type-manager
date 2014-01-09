@@ -1,10 +1,8 @@
 <?php 
 
-class Custom_Field_Select {
-	protected $_label;
-	protected $_description;
+class Custom_Field_Select extends Custom_Field_Abstract{
+
 	protected $_options;
-	protected $_id;
 
 	public function __construct($label, $desc = null, $options = array()) {
 		$this->_label = $label;
@@ -23,13 +21,5 @@ class Custom_Field_Select {
 		$html .='</select><br /><span class="description">'.$this->_description.'</span>';  
 
 		return $html; 
-	}
-
-	public function get_id() {
-		return $this->_id;
-	}
-
-	public function get_label() {
-		return $this->_label;
 	}
 }

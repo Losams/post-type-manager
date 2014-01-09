@@ -1,9 +1,6 @@
 <?php 
 
-class Custom_Field_Text {
-	protected $_label;
-	protected $_description;
-	protected $_id;
+class Custom_Field_Text extends Custom_Field_Abstract{
 
 	public function __construct($label, $desc = null) {
 		$this->_label = $label;
@@ -18,11 +15,5 @@ class Custom_Field_Text {
 				<br /><span class="description">'.$this->_description.'</span>'; 
 	}
 
-	public function get_id() {
-		return $this->_id;
-	}
 
-	public function get_label() {
-		return $this->_label;
-	}
 }

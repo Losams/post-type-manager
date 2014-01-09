@@ -43,7 +43,7 @@ class Post_Type_Manager {
 
 	public function add_text_field($label, $desc = null) {
 		$this->check_metabox();
-		$this->_fields_obj[] = new Custom_Field_Text($label, $desc);
+		$this->_fields[] = new Custom_Field_Text($label, $desc);
 	}
 
 	public function add_textarea_field($label, $desc = null) {
