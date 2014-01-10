@@ -23,18 +23,33 @@ Type of fields
 --------------
 
 > add_text_field($label, $description);
+>
 > add_textarea_field($label, $description);
+>
 > add_checkbox_field($label, $description);
+>
 > add_select_field($label, $description, $options);
+>
 > add_radio_field($label, $description, $options);
+>
 > add_post_list_field($label, $description, $type_post);
+>
 > add_image_field($label, $description);
 
+The array $options is in this format :
+
 > $options = array(
+>
 >  array(  'label' => 'Wahou 1',
->          'value' => '1'),
+>
+> 'value' => '1'),
+>
 >  array(  'label' => 'Wahou 2',
->          'value' => '2'),
+>
+> 'value' => '2'),
+>
 >  array(  'label' => 'Wahou 3',
->          'value' => '3')
+>
+> 'value' => '3')
+>
 > );
