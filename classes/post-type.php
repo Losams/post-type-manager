@@ -3,7 +3,7 @@
 class Post_Type_Manager {
 	protected $_name;
 	protected $_fields 			= array();
-	protected $_supports 		= array(); //array('title', 'editor', 'excerpt', 'thumbnail');
+	protected $_supports 		= array('title', 'editor'); //array('title', 'editor', 'excerpt', 'thumbnail');
 	protected $_taxonomies		= array(); //array('post_tag','category');
 	protected $_hierarchical	= true;
 	protected $_has_archive		= true;
