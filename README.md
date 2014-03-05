@@ -53,3 +53,29 @@ The array $params for radio, select, $options is in this format :
 > );
 
 You can try $params = array('repeatable' => true) if you trust in me (don't...)
+
+Remove / Add support / taxonomy
+-------------------------------
+
+> $game->remove_support('editor');
+
+> $game->add_support('editor');
+
+> $game->add_taxonomy('tax');
+
+> $game->remove_taxonomy('tax');
+
+Add MetaBox
+-----------
+
+Post type manager generate a default box if you don't want to specify. It title can be change with :
+
+> $game->set_box_title($box_title);
+
+For those who want add many box, you can add box like that : 
+
+> $game->create_meta_box('boxbox', 'BoxBox Title');
+
+And then, adding field like that : 
+
+> $game->add_field('image', 'My strong face', 'description', null, 'boxbox');
