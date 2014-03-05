@@ -2,27 +2,25 @@
 
 class Custom_Field_Post_List extends Custom_Field_Abstract{
 
-	protected $_post_type;
+	protected $_prefix_id = 'custom_post_list_';
 
-	public function __construct($label, $desc = null, $post_type = null) {
-		$this->_label = $label;
-		$this->_description = $desc;
-		$this->_post_type = $post_type;
+	public function field_html($meta){
 
-		$label = str_replace(array('\'', ' ', '"'), '_', $label);
-		$this->_id = 'custom_post_list_'.$label;
-	}
+		$post_type = $this->_params['post_type'];
 
-	public function output($meta){
-
-		$items = get_posts( array ( 'post_type' => $this->_post_type,  'posts_per_page' => -1 )); 
-
-		$html = '<select name="'.$this->_id.'" id="'.$this->_id.'"> 
+		// If array param, we use it to get post
+		if (!is_array($post_type)) {
+			$items = get_posts( array( 'post_type' => $post_type,  'posts_per_page' => -1 ) ); 
+		} else {
+			$items = get_posts( $post_type ); 
+		}
+		
+		$html = '<select name="'.$this->_name.'" id="'.$this->_id.'"> 
 		        <option value="">Select One</option>';
 		        foreach($items as $item) {  
 		            $html .= '<option value="'.$item->ID.'"'. ($meta == $item->ID ? ' selected="selected"' : '') .'>'.$item->post_type.': '.$item->post_title.'</option>';  
 		        } 
-	    $html .= '</select><br /><span class="description">'.$this->_description.'</span>';  
+	    $html .= '</select>';  
 	    
 		return $html; 
 	}
