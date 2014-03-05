@@ -17,26 +17,24 @@ Or create your own :
 
 After that, you can add field on this type
 
-> $game->add_text_field('My AweSome LaBel', 'My Poor description');
+> add_field( $type, $label, $desc, $params, $metabox_id)
+
+exemple 
+
+> $game->add_field('text', 'My AweSome LaBel', 'My Poor description', array('repeatable' => true));
+
 
 Type of fields
 --------------
 
-> add_text_field($label, $description);
+> text, textarea, checkbox, select, radio, post-list, image, editor, address, image
 >
-> add_textarea_field($label, $description);
+> $params post-type : $params = array( 'post_type' => 'page'); // for exemple
 >
-> add_checkbox_field($label, $description);
->
-> add_select_field($label, $description, $options);
->
-> add_radio_field($label, $description, $options);
->
-> add_post_list_field($label, $description, $type_post);
->
-> add_image_field($label, $description);
+> $params select, radio : saw below
 
-The array $options is in this format :
+
+The array $params for radio, select, $options is in this format :
 
 > $options = array(
 >
@@ -53,3 +51,5 @@ The array $options is in this format :
 > 'value' => '3')
 >
 > );
+
+You can try $params = array('repeatable' => true) if you trust in me (don't...)
