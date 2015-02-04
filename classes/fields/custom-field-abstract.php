@@ -16,7 +16,7 @@ abstract class Custom_Field_Abstract {
 		$this->_id = $this->_prefix_id.$label;
 
 		// Change name of input in case of repeatable field
-		if ($this->_params['repeatable']) {
+		if (isset($this->_params['repeatable'])) {
 			$this->_name = $this->_id.'[]';
 		} else {
 			$this->_name = $this->_id;
