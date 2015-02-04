@@ -6,9 +6,13 @@ Version: 1.0.0
 */
 
 function ptm_register_js($hook) {
-        if( 'post.php' != $hook )
+        if(
+	        'post-new.php' != $hook &&
+	        'post.php' != $hook
+
+        )
             return;
-	wp_register_script( 'post-type-manager-js', plugins_url('/js/script.js', __FILE__));
+	wp_register_script( 'post-type-manager-js', plugins_url('/js/script.js', __FILE__), array('jquery'), null, true);
 	wp_enqueue_script('post-type-manager-js');
 }
 
