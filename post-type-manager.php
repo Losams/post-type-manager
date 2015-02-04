@@ -5,11 +5,14 @@ Description: Manager to create custom post type & add field to it
 Version: 1.0.0
 */
 
-function plugin_register_js() {
+function ptm_register_js($hook) {
+        if( 'post.php' != $hook )
+            return;
 	wp_register_script( 'post-type-manager-js', plugins_url('/js/script.js', __FILE__));
 	wp_enqueue_script('post-type-manager-js');
 }
-add_action( 'admin_init','plugin_register_js');
+
+add_action( 'admin_enqueue_scripts', 'ptm_register_js' );
 
 require_once(dirname(__FILE__).'/classes/post-type-meta-box.php');
 require_once(dirname(__FILE__).'/classes/fields/custom-field-abstract.php');
