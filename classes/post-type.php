@@ -17,7 +17,7 @@ class Post_Type_Manager {
 		$this->_name 	= $typeName;
 		$this->_arg		= $arg;
 
-		add_action('save_post', array($this, 'save_custom_meta')); 
+		add_action('save_post', array($this, 'save_custom_meta'));
 	}
 
 	/**
@@ -25,24 +25,24 @@ class Post_Type_Manager {
 	 */
 	public function generate_post_type(){
 		$register_arg = array(
-							'labels' => array(
-								'name' 			=> __( $this->_name, 'custom-post-type-manager' ),
-								'singular_name' => __( $this->_name, 'custom-post-type-manager' )
-							),
-							'rewrite' => array(
-								'slug' => __( $this->_name, 'custom-post-type-manager' )
-								),
-							'public' 		=> true,
-							'supports' 		=> $this->_supports,
-							'hierarchical' 	=> $this->_hierarchical,
-			        		'has_archive' 	=> $this->_has_archive,
-			        		'taxonomies'	=> $this->_taxonomies,
-			        		'can_export' 	=> true
-						);
+			'labels' => array(
+				'name' 			=> __( $this->_name, 'custom-post-type-manager' ),
+				'singular_name' => __( $this->_name, 'custom-post-type-manager' )
+			),
+			'rewrite' => array(
+				'slug' => __( $this->_name, 'custom-post-type-manager' )
+			),
+			'public' 		=> true,
+			'supports' 		=> $this->_supports,
+			'hierarchical' 	=> $this->_hierarchical,
+			'has_archive' 	=> $this->_has_archive,
+			'taxonomies'	=> $this->_taxonomies,
+			'can_export' 	=> true
+		);
 
 		$register_arg = array_merge($register_arg, $this->_arg);
 
-		register_post_type( $this->_name, $register_arg	);	
+		register_post_type( $this->_name, $register_arg	);
 	}
 
 	/**
@@ -62,8 +62,8 @@ class Post_Type_Manager {
 	 */
 	public function remove_support($supp) {
 		if(($key = array_search($supp, $this->_supports)) !== false) {
-		    unset($this->_supports[$key]);
-		    return true;
+			unset($this->_supports[$key]);
+			return true;
 		} else {
 			return false;
 		}
@@ -86,8 +86,8 @@ class Post_Type_Manager {
 	 */
 	public function remove_taxonomy($tax) {
 		if(($key = array_search($tax, $this->_taxonomies)) !== false) {
-		    unset($this->_taxonomies[$key]);
-		    return true;
+			unset($this->_taxonomies[$key]);
+			return true;
 		} else {
 			return false;
 		}
@@ -106,38 +106,38 @@ class Post_Type_Manager {
 	 */
 	public function get_all_ids() {
 		$ids = array();
-	    foreach ($this->_meta_box as $metabox) {  
-	    	foreach ($metabox->_fields as $field) {  
-	    		$ids[$field->get_id()] = $field->get_label();
-	    	}
-	    }
+		foreach ($this->_meta_box as $metabox) {
+			foreach ($metabox->_fields as $field) {
+				$ids[$field->get_id()] = $field->get_slug();
+			}
+		}
 		return $ids;
 	}
 
 	/**
 	 * add custom field to the instance's post type
-	 * @param [string] $type 
-	 * @param [string] $label 
-	 * @param [string] $desc  
-	 * @param [array] $params  
+	 * @param [string] $type
+	 * @param [string] $label
+	 * @param [string] $desc
+	 * @param [array] $params
 	 */
-	public function add_field($type, $label, $desc = null, $params = null, $id_metabox = null) {
+	public function add_field($type, $slug, $desc = null, $params = null, $id_metabox = null) {
 		if ($id_metabox) {
 			if (!isset($this->_meta_box[$id_metabox])) {
-			    throw new Exception("No metabox named : '".$id_metabox."' found", 1);
+				throw new Exception("No metabox named : '".$id_metabox."' found", 1);
 			}
 		} else {
-			$this->check_metabox();	
+			$this->check_metabox();
 			$id_metabox = self::ID_DEFAULT_METABOX;
 		}
-		
+
 		$class_name = 'Custom_Field_'.ucfirst(strtolower($type));
 
 		if (class_exists($class_name)) {
-			$this->_meta_box[$id_metabox]->_fields[] = new $class_name($label, $desc, $params);	
+			$this->_meta_box[$id_metabox]->_fields[] = new $class_name($slug, $desc, $params);
 			// $this->_fields[] = new $class_name($label, $desc, $params);	
 			return true;
-		} 
+		}
 		return false;
 	}
 
@@ -163,30 +163,30 @@ class Post_Type_Manager {
 			return $post_id;
 		}
 
-	    // verify nonce  
-	    if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))   
-	        return $post_id;  
+		// verify nonce
+		if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
+			return $post_id;
 
-	    // check autosave  
-	    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)  
-	        return $post_id;  
+		// check autosave
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+			return $post_id;
 
-	    // check permissions  
-	    if ('page' == $_POST['post_type']) {  
-	        if (!current_user_can('edit_page', $post_id))  
-	            return $post_id;  
-	        } elseif (!current_user_can('edit_post', $post_id)) {  
-	            return $post_id;  
-	    }  
- 	    
-	    // loop through fields and save the data  
-	    foreach ($this->_meta_box as $metabox) {  
-	    	foreach ($metabox->_fields as $field) {  
-		        if (isset($_POST[$field->get_id()])) {
-		        	$field->save($post_id);	
-		        }
-	    	}
-	    }
+		// check permissions
+		if ('page' == $_POST['post_type']) {
+			if (!current_user_can('edit_page', $post_id))
+				return $post_id;
+		} elseif (!current_user_can('edit_post', $post_id)) {
+			return $post_id;
+		}
 
-	}  
+		// loop through fields and save the data
+		foreach ($this->_meta_box as $metabox) {
+			foreach ($metabox->_fields as $field) {
+				if (isset($_POST[$field->get_id()])) {
+					$field->save($post_id);
+				}
+			}
+		}
+
+	}
 }
